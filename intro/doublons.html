@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var fruits = [
+            "pommes",
+            "oranges",
+            "poires",
+            "oranges",
+            "pommes",
+            "figues",
+            "poires"
+        ];
+
+        var newFruits = [];
+        var posItem;
+
+        for (var index in fruits) {
+            var item = fruits[index];
+            posItem = fruits.indexOf(item);
+
+            if (index == posItem) {
+                newFruits.push(item);
+            }
+        }
+
+        console.table(newFruits);
+    </script>
+</body>
+
+</html>

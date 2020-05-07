@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liste des utilisateurs</title>
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        //Définition des cibles
+        $table = $("#usserTable");
+        $template = $("#rowTemplate").clone();
+        $tbody = $("#userTable tbody");
+
+        $form = $("#form");
+        $resultsInput = $("#inputResults");
+        $genderSelect = $("#genderSelect");
+        $nationalitySelect = $("#nationalitySelect");
+
+        const URL = "https://randomuser.me/api";
+
+        function getUsersUrl() {
+          var url =
+            URL +
+            "?results=" +
+            $resultsInput.val() +
+            "&gender=" +
+            $genderSelect.val() +
+            "&nat=" +
+            $nationalitySelect.val();
+
+          console.log(url);
+          return url;
+        }
+
+        //Fonction de chargement des utilisateurs
+        function loadUsers() {
+          $.get(getUsersUrl(), function (response) {
+            loadInTable(response.results);
+          });
+        }
+        //Affichage des données jso dans un tableau html
+        function loadInTable(data) {
+          $shadowTbody = $tbody;
+          for (row of data) {
+            $shadowTbody.append(getRow(row));
+          }
+
+          $tbody.replaceWith($shadowTbody);
+          $tbody = $shadowTbody;
+        }
+
+        function getRow(data) {
+          $row = $template.clone().removeAttr("id");
+          $row
+            .children()
+            .first()
+            .text(data.name.first + " " + data.name.last)
+            .next()
+            .text(data.location.city)
+            .next()
+            .text(data.email);
+
+          return $row;
+        }
+
+        $form.submit(function (even) {
+          even.preventDefault();
+          loadUsers();
+        });
+      });
+    </script>
+  </head>
+  <body class="container-fluid">
+    <div class="row p-5">
+      <div class="col">
+        <form id="form" class="row">
+          <div class="form-group col">
+            <label>Nombre d'utilisateurs</label>
+            <input type="number" id="inputResults" class="form-control" />
+          </div>
+          <div class="form-group col">
+            <label>Genre</label>
+            <select id="genderSelect" class="form-control">
+              <option value="female">Femme</option>
+              <option value="male">Homme</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <label>Nationalité</label>
+            <select id="nationalitySelect" class="form-control">
+              <option value="fr">Française</option>
+              <option value="de">Allemande</option>
+              <option value="gb">Anglaise</option>
+              <option value="dk">Danoise</option>
+              <option value="es">Espagnole</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <button id="btLoad" class="btn btn-primary mb-4" type="submit">
+              Charger des utilisateurs
+            </button>
+          </div>
+        </form>
+
+        <table class="table table-striped" id="userTable">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Pays</th>
+              <th>email</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr id="rowTemplate">
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        var $form = $("#form");
+        var $input = $("#inputTask");
+        var $template = $("#template").clone();
+        $("#template").remove();
+        $tbody = $("#taskList tbody");
+
+        function htmlTableToJson() {
+          var data = [];
+          var rows = $tbody.children();
+          for (item of rows) {
+            data.push({ task: $(item).children().first().text() });
+          }
+
+          return data;
+        }
+
+        function persist() {
+          var data = htmlTableToJson();
+          window.localStorage.setItem("taskList", JSON.stringify(data));
+        }
+
+        function renderTable() {
+          var data = window.localStorage.getItem("taskList");
+          data = JSON.parse(data);
+          var $shadowTbody = $("<tbody></tbody>");
+          for (row of data) {
+            $task = $template.clone().removeAttr("id");
+            $task.children().first().text(row.task);
+            $shadowTbody.append($task);
+          }
+
+          $tbody.replaceWith($shadowTbody);
+          $tbody = $("#taskList tbody");
+        }
+
+        renderTable();
+
+        $form.on("submit", function (even) {
+          even.preventDefault();
+          var taskValue = $input.val().trim();
+
+          if (taskValue) {
+            $newtask = $template.clone().removeAttr("id");
+            $newtask.children().first().text(taskValue);
+            $tbody.append($newtask);
+            //Enregistrement des tâches dans le local storage
+            persist();
+          }
+        });
+
+        $("body").delegate("#taskList .delete", "click", function () {
+          $(this)
+            .parent()
+            .parent()
+            .hide(800, function () {
+              $(this).remove();
+              persist();
+            });
+        });
+      });
+    </script>
+  </head>
+  <body class="container-fluid">
+    <div class="row justify-content-center mt-4">
+      <form id="form" class="col-6 form-inline">
+        <div class="form-group">
+          <input
+            type="text"
+            placeholder="votre tâche"
+            class="form-control"
+            id="inputTask"
+          />
+        </div>
+        <button class="btn btn-primary ml-3" type="submit">Valider</button>
+      </form>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+      <table class="table table-striped col-9" id="taskList">
+        <thead>
+          <tr>
+            <th>Tâche</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="template">
+            <td></td>
+            <td>
+              <button class="btn btn-danger delete">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

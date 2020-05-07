@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select 2</title>
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../node_modules/select2/dist/css/select2.min.css"
+    />
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/select2/dist/js/select2.min.js"></script>
+    <script src="../node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("select").select2({
+          ajax: {
+            url: "https://randomuser.me/api?results=500&nat=fr",
+            dataType: "json",
+            processResults: function (data) {
+              var users = data.results.map(function (item, index) {
+                return {
+                  id: index,
+                  text: item.name.first + " " + item.name.last,
+                };
+              });
+
+              console.log(users);
+
+              return { results: users };
+            },
+          },
+        });
+
+        //CkEditor
+        ClassicEditor.create(document.getElementById("bio"));
+      });
+    </script>
+  </head>
+  <body>
+    <div class="form-group">
+      <select id="languagesSelect" multiple class="form-control">
+        <option>Java</option>
+        <option>Javascript</option>
+        <option>C++</option>
+        <option>Python</option>
+      </select>
+    </div>
+
+    <select>
+      <option>Paris</option>
+      <option>Perpignan</option>
+      <option>Bièvres</option>
+      <option>Bréauté</option>
+      <option>Billancourt</option>
+    </select>
+    <div>
+      <textarea id="bio"></textarea>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      var persons = [
+        {
+          name: "Jane",
+          age: 23,
+        },
+        {
+          name: "Emily",
+          age: 28,
+        },
+        {
+          name: "Robert",
+          age: 6,
+        },
+        {
+          name: "Karl",
+          age: 3,
+        },
+        {
+          name: "Sophie",
+          age: 7,
+        },
+      ];
+
+      persons.sort(function (a, b) {
+        return b.age - a.age;
+      });
+
+      persons.forEach(function (item) {
+        item.age = item.age + 1;
+      });
+
+      var ages = persons.map(function (item) {
+        return item.age;
+      });
+
+      var children = persons.filter(function (item) {
+        return item.age < 13;
+      });
+
+      var totalAge = children
+        .map(function (item) {
+          return item.age;
+        })
+        .reduce(function (total, age) {
+          return total + age;
+        });
+
+      console.log(totalAge);
+
+      console.log(children);
+      console.log(ages);
+      console.table(persons);
+    </script>
+  </body>
+</html>

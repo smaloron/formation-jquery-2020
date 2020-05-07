@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panier</title>
+</head>
+
+<body>
+
+    <div id="output"></div>
+
+    <div id="outputAlt"></div>
+
+    <script>
+        var basket = [{
+            article: "Clavier",
+            prix: 8,
+            qt: 2
+        }, {
+            article: "Disque dur",
+            prix: 80,
+            qt: 3
+        }, {
+            article: "Onduleur",
+            prix: 120,
+            qt: 2
+        }, ];
+
+        function showBasket(data, target) {
+            var html = getTableCode(data);
+            document.getElementById(target).innerHTML = html;
+        }
+
+        function getTableCode(data) {
+            html = "<table>";
+            html += getTableHeader();
+
+            for (item of data) {
+                html += getTableRow(item);
+            }
+
+            html += "</table>";
+            return html;
+        }
+
+        function getTableHeader() {
+            html = `<tr>
+                <th>Article</th>
+                <th>Prix unitaire</th>
+                <th>Qt</th>
+                <th>total</th>
+            </tr>`;
+
+            return html;
+        }
+
+        function getTableRow(item) {
+            var rowTotal = item.prix * item.qt;
+
+            var rowHtml = `
+            <tr>
+                <td>${
+                    item.article
+                }</td>
+                <td>${
+                    item.prix
+                }</td>
+                <td>${
+                    item.qt
+                }</td>
+                <td>${rowTotal}</td>
+            </tr>
+            `;
+
+            return rowHtml;
+        }
+
+        showBasket(basket, "output");
+
+        /*
+        // Calcul du prix total
+        var total = 0;
+
+
+        // Création du contenu html pour afficher le tableau
+        var html = `<table>
+            <tr>
+                <th>Article</th>
+                <th>Prix unitaire</th>
+                <th>Qt</th>
+                <th>total</th>
+            </tr>
+        `;
+
+        for (var item of basket) {
+            var rowTotal = item.prix * item.qt;
+            console.log(rowTotal);
+            total += rowTotal;
+
+            var rowHtml = `
+                <tr>
+                    <td>${
+                    item.article
+                }</td>
+                    <td>${
+                    item.prix
+                }</td>
+                    <td>${
+                    item.qt
+                }</td>
+                    <td>${rowTotal}</td>
+                </tr>
+            `;
+
+            html += rowHtml;
+        }
+
+        html += `<tr><td colspan=3>TOTAL</td><td>${total}</td></tr></table>`;
+
+        document.getElementById("output").innerHTML = html;
+        */
+    </script>
+</body>
+
+</html>

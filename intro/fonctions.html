@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonctions</title>
+</head>
+
+<body>
+    <script>
+        function test(type) {
+            console.log(arguments);
+            if (type == "nombre") {
+                var total = 0;
+                for (index in arguments) {
+                    if (index > 0) {
+                        total += parseInt(arguments[index]);
+                    }
+
+                }
+                console.log(total);
+            }
+        }
+
+        test("nombre", 1, 5, 8);
+
+        test("a", "b", "c");
+
+        function stepOne() {
+            console.log("step one");
+        }
+
+        function stepTwo() {
+            console.log("step two");
+        }
+
+        function stepThree() {
+            console.log("step three");
+        }
+
+        var process = [stepThree, stepTwo, stepOne];
+
+        for (var operation of process) {
+            operation();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      li {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello <em>world</em></h1>
+
+    <button id="btTitle">Changer le titre</button>
+
+    <ul>
+      <li>Python</li>
+      <li>Javascript</li>
+      <li>Java</li>
+      <li>C++</li>
+    </ul>
+
+    <button id="btSort">Trier la liste</button>
+
+    <ul id="villes">
+      <li>Paris</li>
+      <li>Dublin</li>
+      <li>Berlin</li>
+      <li>Nairobi</li>
+      <li>Osaka</li>
+    </ul>
+
+    <a href="http://www.google.fr">Lien vers Google</a>
+    <a href="http://www.m2i.fr">Lien vers M2i</a>
+    <a href="http://www.openclassroom.fr">Lien vers Open Classroom</a>
+
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat qui
+      aliquam obcaecati nesciunt reiciendis quae, natus magni assumenda omnis
+      dignissimos sed perspiciatis itaque aperiam saepe facere accusamus quam
+      voluptatem suscipit! Lorem, ipsum dolor sit amet consectetur adipisicing
+      elit. Magnam amet quidem dolores animi, dolorum incidunt voluptatibus ea
+      voluptates aspernatur fugit et cupiditate qui beatae voluptas iusto odit?
+      Mollitia, exercitationem omnis! Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Repellendus odit nesciunt odio, neque animi minus quod
+      vel aut, rerum repudiandae obcaecati? Magni nemo atque quia alias porro
+      amet, delectus esse!
+    </p>
+
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat qui
+      aliquam obcaecati nesciunt reiciendis quae, natus magni assumenda omnis
+      dignissimos sed perspiciatis itaque aperiam saepe facere accusamus quam
+      voluptatem suscipit! Lorem, ipsum dolor sit amet consectetur adipisicing
+      elit. Magnam amet quidem dolores animi, dolorum incidunt voluptatibus ea
+      voluptates aspernatur fugit et cupiditate qui beatae voluptas iusto odit?
+      Mollitia, exercitationem omnis! Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Repellendus odit nesciunt odio, neque animi minus quod
+      vel aut, rerum repudiandae obcaecati? Magni nemo atque quia alias porro
+      amet, delectus esse!
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat qui
+      aliquam obcaecati nesciunt reiciendis quae, natus magni assumenda omnis
+      dignissimos sed perspiciatis itaque aperiam saepe facere accusamus quam
+      voluptatem suscipit! Lorem, ipsum dolor sit amet consectetur adipisicing
+      elit. Magnam amet quidem dolores animi, dolorum incidunt voluptatibus ea
+      voluptates aspernatur fugit et cupiditate qui beatae voluptas iusto odit?
+      Mollitia, exercitationem omnis! Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Repellendus odit nesciunt odio, neque animi minus quod
+      vel aut, rerum repudiandae obcaecati? Magni nemo atque quia alias porro
+      amet, delectus esse!
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat qui
+      aliquam obcaecati nesciunt reiciendis quae, natus magni assumenda omnis
+      dignissimos sed perspiciatis itaque aperiam saepe facere accusamus quam
+      voluptatem suscipit! Lorem, ipsum dolor sit amet consectetur adipisicing
+      elit. Magnam amet quidem dolores animi, dolorum incidunt voluptatibus ea
+      voluptates aspernatur fugit et cupiditate qui beatae voluptas iusto odit?
+      Mollitia, exercitationem omnis! Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Repellendus odit nesciunt odio, neque animi minus quod
+      vel aut, rerum repudiandae obcaecati? Magni nemo atque quia alias porro
+      amet, delectus esse!
+    </p>
+
+    <script>
+      var body = document.body;
+      var ul = body.children[1];
+      var items = ul.children;
+
+      function sortHtmlList(htmlCollection) {
+        //Le tableau des données à trier
+        var data = [];
+        //lecture des éléments HTML et constitution
+        //du tabeau des données
+        for (item of htmlCollection) {
+          data.push(item.textContent);
+        }
+
+        //Tri des données
+        data.sort();
+
+        //Restitution des données tiées dans le DOM
+        for (var index in data) {
+          htmlCollection[index].textContent = data[index];
+        }
+      }
+
+      //Tri de la deuxième liste
+
+      document.querySelector("#btSort").onclick = function () {
+        sortHtmlList(document.querySelectorAll("#villes li"));
+      };
+
+      document.querySelector("#btTitle").onclick = function () {
+        document.querySelector("h1").style.backgroundColor = "#CCCCCC";
+      };
+
+      function showIntoWindow(even) {
+        console.log(even);
+        var url = even.target.href;
+        window.open(url, "google", "width=500, height=800");
+        return false;
+      }
+
+      var links = document.querySelectorAll("a");
+      for (item of links) {
+        item.onclick = showIntoWindow;
+      }
+
+      function changeListItem(even) {
+        console.log(even);
+        if (even.target.style.fontWeight == "bold") {
+          even.target.style.fontWeight = "normal";
+        } else {
+          even.target.style.fontWeight = "bold";
+        }
+      }
+
+      var listItems = document.querySelectorAll("li");
+
+      for (item of listItems) {
+        item.onclick = changeListItem;
+      }
+
+      var h1 = document.querySelector("h1");
+      h1.style.color = "red";
+      h1.style.marginBottom = "50px";
+
+      document.body.oncontextmenu = function () {
+        alert("Interdit");
+        return false;
+      };
+
+      window.onmousemove = function (evt) {
+        console.log("clientX = " + evt.clientX);
+        console.log("pageX = " + evt.pageX);
+        console.log("clientY = " + evt.clientY);
+        console.log("pageY = " + evt.pageY);
+      };
+    </script>
+  </body>
+</html>

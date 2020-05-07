@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intro à jQuery</title>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      //Exécution du code uniquement lorsque le DOM est chargé
+      $(document).ready(function () {
+        var $h1 = $("h1");
+        var $h3 = $("h3");
+
+        $("button").click(function () {
+          $(this).css({
+            backgroundColor: "red",
+            color: "white",
+          });
+        });
+
+        var listStyles = {
+          color: "red",
+          fontSize: "24px",
+        };
+
+        $("li")
+          .hide(500, function () {
+            $h3.hide(200);
+          })
+          .show(800, function () {
+            $h1.text("Hello jQuery");
+            $h3.show(300);
+          })
+          .text(function (index, olValue) {
+            return index + " " + olValue;
+          })
+          .css(listStyles);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Hello</h1>
+
+    <button>Cliquez moi</button>
+
+    <h3>jQuery est utile pour</h3>
+    <ul>
+      <li>Gérer le DOM</li>
+      <li>Faire des animations</li>
+      <li>Faire des requêtes AJAX</li>
+      <li>Utiliser des plugins</li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      #loginForm {
+        width: 400px;
+        position: absolute;
+        top: 100px;
+        left: 30%;
+        border: 1px solid #444444;
+        padding: 15px;
+        z-index: 10;
+        background-color: white;
+      }
+
+      #overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Monsite</h1>
+
+    <button id="btShowForm">Afficher le formulaire</button>
+
+    <div id="loginForm" class="hidden">
+      <form>
+        <div>
+          <label>login</label>
+          <input type="text" placeholder="votre login" />
+        </div>
+        <div>
+          <label>Mot de passe</label>
+          <input type="password" placeholder="votre mot de passe" />
+        </div>
+
+        <button type="submit">Connexion</button>
+      </form>
+    </div>
+
+    <div id="overlay" class="hidden"></div>
+    <script>
+      var btShowForm = document.querySelector("#btShowForm");
+      var loginForm = document.querySelector("#loginForm");
+      var overlay = document.querySelector("#overlay");
+      btShowForm.onclick = function () {
+        overlay.classList.toggle("hidden");
+        loginForm.classList.toggle("hidden");
+      };
+
+      overlay.onclick = function (even) {
+        console.log(even.target);
+        overlay.classList.toggle("hidden");
+        loginForm.classList.toggle("hidden");
+      };
+
+      loginForm.onclick = function (even) {
+        even.stopPropagation();
+      };
+    </script>
+  </body>
+</html>

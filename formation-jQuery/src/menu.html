@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu</title>
+    <style>
+      .opened {
+        color: red;
+        font-style: italic;
+      }
+      .active {
+        background-color: purple;
+        color: white;
+        box-shadow: 0px 0px 5px #555555;
+      }
+    </style>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        //Cible des ul enfants d'un li
+        var $secondLevel = $("li ul");
+        //Cible des titres de menu
+        var $menuTitles = $("h4");
+
+        //Masquage des éléments de deuxième niveau
+        $secondLevel.hide();
+
+        //Ouverture d'un menu
+        $menuTitles.css("cursor", "pointer").click(function () {
+          $(this).next("ul").toggle(300);
+          $(this).toggleClass("opened");
+        });
+
+        //Gestion de la button bar
+        var $buttons = $("#button-bar button");
+        $buttons.click(function () {
+          //$buttons.filter(".active").removeClass("active");
+          $buttons.not($(this)).removeClass("active");
+          $(this).addClass("active");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="button-bar">
+      <button class="active">bt 1</button>
+      <button>bt 2</button>
+      <button>bt 3</button>
+      <button>bt 4</button>
+    </div>
+
+    <ul>
+      <li>
+        <h4>Les légumes</h4>
+        <ul>
+          <li>
+            <h4>Légumes racines</h4>
+            <ul>
+              <li>Pommes de terre</li>
+              <li>Carottes</li>
+            </ul>
+          </li>
+
+          <li>
+            <h4>Légumes feuilles</h4>
+            <ul>
+              <li>Choux</li>
+              <li>Salades</li>
+              <li>Blettes</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h4>Les fruits</h4>
+        <ul>
+          <li>Pommes</li>
+          <li>Oranges</li>
+          <li>Grenades</li>
+        </ul>
+      </li>
+    </ul>
+  </body>
+</html>

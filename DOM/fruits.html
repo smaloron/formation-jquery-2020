@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <form id="fruitForm">
+        <input type="text" id="inputFruit" placeholder="Le nom du fruit" />
+        <button type="submit" id="btSubmit">Valider</button>
+      </form>
+    </div>
+
+    <ul id="fruitList"></ul>
+
+    <script>
+      //Les cibles de l'application
+      var inputField = document.querySelector("#inputFruit");
+      var fruitList = document.querySelector("#fruitList");
+      var form = document.querySelector("#fruitForm");
+
+      function getFruitList() {
+        var list = [];
+        for (item of fruitList.children) {
+          list.push(item.textContent.replace("supprimer", ""));
+        }
+        return list;
+      }
+
+      //Traitement du formulaire
+      form.onsubmit = function (even) {
+        //Empêche la soummission du formulaire
+        even.preventDefault();
+
+        //Récupération de la saisie
+        var fruitValue = inputField.value.trim();
+
+        var data = getFruitList();
+
+        var notExists = data.indexOf(fruitValue) == -1;
+
+        //Insertion dans la liste
+        //uniquemement si la saisie n'est pas vide
+        if (fruitValue && notExists) {
+          //Création d'un élément
+          var item = document.createElement("li");
+          //Définition du texte de l'élément
+          item.textContent = fruitValue;
+
+          //Création d'un lien de suppression
+          var deleteLink = document.createElement("a");
+          deleteLink.textContent = "supprimer";
+          deleteLink.classList.add("delete");
+          deleteLink.href = "#";
+          deleteLink.onclick = function (even) {
+            even.preventDefault();
+            even.target.parentElement.remove();
+          };
+
+          item.appendChild(deleteLink);
+
+          //Ajout de l'élément au DOM
+          fruitList.appendChild(item);
+
+          //Effacement du champ texte à la validation
+          inputField.value = "";
+          //Prise de focus sur le champ texte
+          inputField.focus();
+        }
+      };
+    </script>
+  </body>
+</html>

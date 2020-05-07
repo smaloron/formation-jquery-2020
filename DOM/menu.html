@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .hidden {
+        display: none;
+      }
+
+      h1 {
+        cursor: pointer;
+      }
+
+      .help {
+        position: absolute;
+        padding: 20px;
+        width: 200px;
+        background-color: palegoldenrod;
+      }
+
+      p {
+        cursor: pointer;
+        background-color: peru;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Titre 1</h1>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et nam,
+      inventore adipisci iusto beatae unde similique debitis, voluptatem id sint
+      nobis, corporis tenetur qui suscipit. Doloremque suscipit necessitatibus
+      maiores earum! Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+      Et nam, inventore adipisci iusto beatae unde similique debitis, voluptatem
+      id sint nobis, corporis tenetur qui suscipit. Doloremque suscipit
+      necessitatibus maiores earum! Lorem, ipsum dolor sit amet consectetur
+      adipisicing elit. Et nam, inventore adipisci iusto beatae unde similique
+      debitis, voluptatem id sint nobis, corporis tenetur qui suscipit.
+      Doloremque suscipit necessitatibus maiores earum!
+    </p>
+    <div class="help hidden">Aide sur le paragraphe 1</div>
+
+    <h1>Titre 2</h1>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et nam,
+      inventore adipisci iusto beatae unde similique debitis, voluptatem id sint
+      nobis, corporis tenetur qui suscipit. Doloremque suscipit necessitatibus
+      maiores earum! Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+      Et nam, inventore adipisci iusto beatae unde similique debitis, voluptatem
+      id sint nobis, corporis tenetur qui suscipit. Doloremque suscipit
+      necessitatibus maiores earum! Lorem, ipsum dolor sit amet consectetur
+      adipisicing elit. Et nam, inventore adipisci iusto beatae unde similique
+      debitis, voluptatem id sint nobis, corporis tenetur qui suscipit.
+      Doloremque suscipit necessitatibus maiores earum!
+    </p>
+    <div class="help hidden">Aide sur le paragraphe 2</div>
+
+    <h1>Titre 3</h1>
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et nam,
+      inventore adipisci iusto beatae unde similique debitis, voluptatem id sint
+      nobis, corporis tenetur qui suscipit. Doloremque suscipit necessitatibus
+      maiores earum! Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+      Et nam, inventore adipisci iusto beatae unde similique debitis, voluptatem
+      id sint nobis, corporis tenetur qui suscipit. Doloremque suscipit
+      necessitatibus maiores earum! Lorem, ipsum dolor sit amet consectetur
+      adipisicing elit. Et nam, inventore adipisci iusto beatae unde similique
+      debitis, voluptatem id sint nobis, corporis tenetur qui suscipit.
+      Doloremque suscipit necessitatibus maiores earum!
+    </p>
+    <div class="help hidden">Aide sur le paragraphe 3</div>
+
+    <script>
+      //Cible des titres de la page
+      var titles = document.querySelectorAll("h1");
+      var paragraphs = document.querySelectorAll("p");
+
+      //Définition des événements pour l'ensemble des titres
+      for (item of titles) {
+        item.addEventListener("click", function (even) {
+          even.target.nextElementSibling.classList.toggle("hidden");
+        });
+      }
+
+      //Défnition des événements pour l'ensemble des paragraphes
+      for (item of paragraphs) {
+        item.addEventListener("mouseover", function (even) {
+          console.log(even.target.nextElementSibling);
+          var helpDiv = even.target.nextElementSibling;
+          helpDiv.classList.remove("hidden");
+          helpDiv.style.left = even.pageX + "px";
+          helpDiv.style.top = even.pageY + "px";
+        });
+        item.addEventListener("mouseout", function (even) {
+          even.target.nextElementSibling.classList.add("hidden");
+        });
+
+        item.addEventListener("mousemove", function (even) {
+          var helpDiv = even.target.nextElementSibling;
+          helpDiv.style.left = even.pageX + "px";
+          helpDiv.style.top = even.pageY + "px";
+        });
+      }
+    </script>
+  </body>
+</html>

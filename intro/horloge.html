@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horloge</title>
+
+    <style>
+        .ball {
+            border-radius: 50%;
+            background-color: red;
+            width: 200px;
+            height: 200px;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="horloge"></div>
+
+    <div class="ball" id="ball"></div>
+
+    <script>
+        // cible pour affichage de l'horloge
+        var target = document.getElementById("horloge");
+
+        // Définition de l'intervalle
+        var interval = setInterval(function() {
+            var d = new Date();
+            target.innerHTML = d.toLocaleTimeString();
+        }, 1000);
+
+        // Déplacement d'un élément sur la page
+        var ball = document.getElementById("ball");
+        var posTop = 0;
+        var posLeft = 0;
+        var animation;
+        animation = setInterval(function() {
+            posTop += 10;
+            posLeft += 20;
+            ball.style.top = posTop + "px";
+            ball.style.left = posLeft + "px";
+
+            if (posTop > 500 || posLeft > 500) {
+                clearInterval(animation);
+            }
+
+        }, 200)
+    </script>
+</body>
+
+</html>

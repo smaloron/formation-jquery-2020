@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    </style>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        
+        var $h1 = $("#title");
+
+        $("#btDuplicate").click(function(){
+            var $newTitle = $h1 .clone()
+                                .removeAttr("id");
+
+            $newTitle.children("h1")
+                     .text("Mon titre " + $("h1").length);
+
+
+            $h1.after($newTitle);
+        });
+
+        $("body").delegate(".delete", "click", function(){
+            $(this).parent().remove();
+        })
+
+      });
+    </script>
+  </head>
+  <body>
+    <button id="btDuplicate">Dupliquer</button>
+
+    <div id="title">
+        <h1 >Mon titre </h1>
+        <button class="delete">Supprimer</button>
+    </div>
+    
+    
+  </body>
+</html>

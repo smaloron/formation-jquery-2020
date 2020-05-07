@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #spaceship {
+        position: absolute;
+        width: 100px;
+      }
+    </style>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        var $spaceShip = $("#spaceship");
+        var speed = 10;
+        var rotation = 0;
+
+        const KEY_RIGHT = 39;
+        const KEY_LEFT = 37;
+        const KEY_UP = 38;
+
+        $(document).keydown(function (even) {
+          if (even.which == KEY_UP) {
+            var rad = (rotation * Math.PI) / 180;
+
+            var posX = parseInt($spaceShip.css("left").replace("px", ""));
+            var posY = parseInt($spaceShip.css("top").replace("px", ""));
+
+            posX += speed * Math.cos(rad);
+            posY += speed * Math.sin(rad);
+
+            $spaceShip.css({
+              left: posX + "px",
+              top: posY + "px",
+            });
+          }
+          if (even.which == KEY_LEFT) {
+            rotation -= 5;
+            $spaceShip.css("transform", "rotate(" + rotation + "deg)");
+          }
+          if (even.which == KEY_RIGHT) {
+            rotation += 5;
+            $spaceShip.css("transform", "rotate(" + rotation + "deg)");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <img src="spaceship.png" id="spaceship" />
+  </body>
+</html>

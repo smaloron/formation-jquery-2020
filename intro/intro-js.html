@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction à Javascript</title>
+</head>
+
+<body>
+    <div id="output"></div>
+
+    <script>
+        // Déclaration des variables
+        var name = "Seb";
+        var age = 40;
+        var test;
+
+        var message = "Bonjour " + name + " vous avez " + age + " ans";
+
+        var message2 = `Bonjour ${name} vous avez ${age} ans`;
+
+        console.log(message2);
+
+        // ciblage d'un élément de la page html
+        var outputDiv = document.getElementById("output");
+
+        // Ecriture dans la cible
+        outputDiv.innerHTML = `<h1> ${message2} </h1>`;
+
+        // Expression arithmétique
+        // Calcul de l'aire d'un cercle
+        var radius = 30;
+
+        console.log(Math.pow(radius, 2) * Math.PI);
+
+        // infos sur le type des variables
+        console.log(typeof name);
+        console.log(typeof age);
+        console.log(typeof outputDiv);
+        console.log(typeof toto);
+        console.log(typeof test);
+
+        // Problèmes avec la concaténation
+        console.log("Vous avez " + (
+            age + 1
+        ) + " ans");
+
+        // demander une saisie
+        age = prompt("Votre âge ?");
+        // age = age * 1;
+        age = parseInt(age);
+        console.log(typeof age);
+        console.log("Vous avez " + age + 1 + " ans");
+
+        console.log((2 * 5) + 3);
+
+
+        // nombre aléatoire
+        Math.ceil(Math.random() * 100);
+    </script>
+</body>
+
+</html>

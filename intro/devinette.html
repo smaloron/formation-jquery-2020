@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deviner un nombre</title>
+</head>
+
+<body>
+
+    <div id="message"></div>
+
+    <script>
+        // Le nombre à deviner
+        var secretNumber;
+        // La saisie du joueur
+        var guess;
+        // Le résultat d'un coup
+        var message;
+
+        // booléen indiquant que l'on a pas gagné
+        won = false;
+
+        // cible du résultat du jeu
+        var messageDiv = document.getElementById("message");
+
+        // Un nombre aléatoire entre 1 et 100
+        secretNumber = Math.ceil(Math.random() * 100);
+
+        console.log(secretNumber);
+
+        while (!won) {
+
+            guess = prompt("Entrez un nombre entre 1 et 100");
+            guess = parseInt(guess);
+
+            if (guess > 0 && guess < 100) {
+                if (guess == secretNumber) {
+                    message = "Vous avez gagné";
+                    won = true;
+                } else if (guess < secretNumber) {
+                    message = "Trop petit";
+                } else {
+                    message = "Trop grand";
+                }
+            } else {
+                message = "Vous devez saisir un nombre entre 1 et 100";
+            }
+
+            alert(message);
+        }
+    </script>
+
+</body>
+
+</html>

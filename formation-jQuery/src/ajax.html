@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajax</title>
+    <link
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        const URL = "https://api.ratesapi.io/api/latest";
+
+        $euroInput = $("#euro");
+        $currencySelect = $("#currencyCode");
+        $form = $("#form");
+        $result = $("#result");
+
+        function calculateChange(event) {
+          event.preventDefault();
+          var euro = $euroInput.val();
+          var currencyCode = $currencySelect.val();
+
+          console.log(euro);
+          console.log(currencyCode);
+
+          if (euro > 0 && currencyCode != "") {
+            $.get(URL, function (response) {
+              var rate = response.rates[currencyCode];
+              if (rate) {
+                var amount = euro * rate;
+                $result.text(amount);
+              } else {
+                $result.text("Impossible d'obtenir le taux de change");
+              }
+            });
+          }
+        }
+
+        $form.submit(calculateChange);
+        $currencySelect.change(calculateChange);
+        $euroInput.keyup(calculateChange);
+      });
+    </script>
+  </head>
+  <body class="container-fluid">
+    <div class="row">
+      <div class="col-6 offset-2">
+        <form method="post" id="form">
+          <div class="form-group">
+            <input
+              type="number"
+              id="euro"
+              placeholder="montant en euros"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <select class="form-control" id="currencyCode">
+              <option value="">Choisissez la monnaie</option>
+              <option value="USD">Dollar américain</option>
+              <option value="CAD">Dollar canadien</option>
+              <option value="JPY">Yen japonaise</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-block btn-primary">
+            Valider
+          </button>
+        </form>
+
+        <div id="result"></div>
+      </div>
+    </div>
+  </body>
+</html>
